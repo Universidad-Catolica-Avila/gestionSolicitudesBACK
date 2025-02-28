@@ -21,8 +21,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.ucav.gestionProtocoloService.entity.Role;
-import com.ucav.gestionProtocoloService.entity.User;
+import com.ucav.gestionProtocoloService.entity.Rol;
+import com.ucav.gestionProtocoloService.entity.Usuario;
 import com.ucav.gestionProtocoloService.exception.ResourceNotFoundException;
 import com.ucav.gestionProtocoloService.payload.ApiResponse;
 import com.ucav.gestionProtocoloService.payload.UserProfile;
@@ -50,29 +50,29 @@ public class UserController {
 
     private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
-    @Secured("ROLE_ADMIN")
+    @Secured("ROL_ADMIN_CC")
     @GetMapping("/users")
-    public List<User> getUsuarios() {
-    	List<User> resultSQL = userRepository.findAll();
+    public List<Usuario> getUsuarios() {
+    	List<Usuario> resultSQL = userRepository.findAll();
     	return resultSQL;
     }
     
-    @Secured("ROLE_ADMIN")
+    @Secured("ROL_ADMIN_CC")
     @GetMapping("/roles")
-    public List<Role> getRoles() {
-    	List<Role> resultSQL = roleRepository.findAll();
+    public List<Rol> getRoles() {
+    	List<Rol> resultSQL = roleRepository.findAll();
     	return resultSQL;
     }
     
-    @Secured("ROLE_ADMIN")
+    @Secured("ROL_ADMIN_CC")
     @GetMapping("/users/id/{id}")
-    public User getUserId(@PathVariable(value = "id") Long id) {
-        User user = userRepository.findById(id)
+    public Usuario getUserId(@PathVariable(value = "id") Long id) {
+        Usuario user = userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("User", "id", id));
         return user;
     }
 
-    @Secured("ROLE_ADMIN")
+    @Secured("ROL_ADMIN_CC")
     @DeleteMapping("/users/id/{id}")
     public boolean deleteUserId(@PathVariable(value = "id") Long id) {
         
@@ -87,16 +87,16 @@ public class UserController {
     
     
     @GetMapping("/user/me")
-    @Secured({"ROLE_ADMIN","ROLE_USER"})
-    public User getCurrentUser(@CurrentUser UserPrincipal currentUser) {
-    	User userR = userRepository.findById(currentUser.getId()).orElseThrow(() -> new ResourceNotFoundException("User", "id", currentUser.getId()));;
+    @Secured({"ROL_ADMIN_CC","ROLE_USER"})
+    public Usuario getCurrentUser(@CurrentUser UserPrincipal currentUser) {
+    	Usuario userR = userRepository.findById(currentUser.getId()).orElseThrow(() -> new ResourceNotFoundException("User", "id", currentUser.getId()));;
         return userR;
     }
 
-    @Secured("ROLE_ADMIN")
+    @Secured("ROL_ADMIN_CC")
     @GetMapping("/users/{username}")
     public UserProfile getUserProfile(@PathVariable(value = "username") String username) {
-        User user = userRepository.findByUsername(username)
+        Usuario user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new ResourceNotFoundException("User", "username", username));
 
         UserProfile userProfile = new UserProfile(user.getId(), user.getUsername(), user.getNombre(), user.getCreatedAt());
@@ -104,18 +104,18 @@ public class UserController {
         return userProfile;
     }
 
-    @Secured("ROLE_ADMIN") 
+    @Secured("ROL_ADMIN_CC") 
     @PostMapping("/user")
     public ResponseEntity<?> saveUser(@RequestBody UserRequest userRequest) {
-        User user = new User();
+        Usuario user = new Usuario();
         
         BeanUtils.copyProperties(userRequest, user);
-        Role role = new Role();
+        Rol role = new Rol();
         role.setId(Long.valueOf(userRequest.getRolId()));
         user.setRoles(Collections.singleton(role));
         
         if (user.getId()!= null && userRequest.getPassword() == null) {
-        	User userPass = userRepository.findById(user.getId())
+        	Usuario userPass = userRepository.findById(user.getId())
                     .orElseThrow(() -> new ResourceNotFoundException("User", "id", user.getId()));
         	if(userPass.getPassword() != null) {
         		user.setPassword(userPass.getPassword());
@@ -124,7 +124,7 @@ public class UserController {
         	user.setPassword(passwordEncoder.encode(userRequest.getPassword()));
         }
 
-        User result = userRepository.save(user);
+        Usuario result = userRepository.save(user);
 
         URI location = ServletUriComponentsBuilder
                 .fromCurrentContextPath().path("/users/{username}")
@@ -133,19 +133,19 @@ public class UserController {
         return ResponseEntity.created(location).body(new ApiResponse(true, "User registered successfully"));
     }
     
-    @Secured("ROLE_ADMIN") 
+    @Secured("ROL_ADMIN_CC") 
     @PutMapping("/user")
     public ResponseEntity<?> updateUser(@RequestBody UserRequest userRequest) {
         
-        User user = new User();
+        Usuario user = new Usuario();
         
         BeanUtils.copyProperties(userRequest, user);
-        Role role = new Role();
+        Rol role = new Rol();
         role.setId(Long.valueOf(userRequest.getRolId()));
         user.setRoles(Collections.singleton(role));
         
         if (user.getId()!= null && userRequest.getPassword() == null) {
-        	User userPass = userRepository.findById(user.getId())
+        	Usuario userPass = userRepository.findById(user.getId())
                     .orElseThrow(() -> new ResourceNotFoundException("User", "id", user.getId()));
         	if(userPass.getPassword() != null) {
         		user.setPassword(userPass.getPassword());
@@ -154,7 +154,7 @@ public class UserController {
         
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         
-        User result = userRepository.save(user);
+        Usuario result = userRepository.save(user);
         URI location = ServletUriComponentsBuilder
                 .fromCurrentContextPath().path("/users/{username}")
                 .buildAndExpand(result.getUsername()).toUri();

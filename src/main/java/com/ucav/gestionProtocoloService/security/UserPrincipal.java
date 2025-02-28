@@ -11,8 +11,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.ucav.gestionProtocoloService.entity.RoleName;
-import com.ucav.gestionProtocoloService.entity.User;
+import com.ucav.gestionProtocoloService.entity.RolName;
+import com.ucav.gestionProtocoloService.entity.Usuario;
 
 @JsonIgnoreProperties({"enabled", "accountNonLocked", "credentialsNonExpired", "accountNonExpired"})
 public class UserPrincipal implements UserDetails {
@@ -22,7 +22,7 @@ public class UserPrincipal implements UserDetails {
 
     private String username;
     
-    private RoleName rolName;
+    private RolName rolName;
 
     @JsonIgnore
     private String email;
@@ -38,7 +38,7 @@ public class UserPrincipal implements UserDetails {
 		// TODO Auto-generated constructor stub
 	}
 
-    public UserPrincipal(Long id, String nombre, String username, String email, String password, Collection<? extends GrantedAuthority> authorities, RoleName rolName) {
+    public UserPrincipal(Long id, String nombre, String username, String email, String password, Collection<? extends GrantedAuthority> authorities, RolName rolName) {
         this.id = id;
         this.nombre = nombre;
         this.username = username;
@@ -48,7 +48,7 @@ public class UserPrincipal implements UserDetails {
         this.rolName = rolName;
     }
 
-    public static UserPrincipal create(User user) {
+    public static UserPrincipal create(Usuario user) {
         List<GrantedAuthority> authorities = user.getRoles().stream().map(role ->
                 new SimpleGrantedAuthority(role.getName().name())
         ).collect(Collectors.toList());
@@ -76,7 +76,7 @@ public class UserPrincipal implements UserDetails {
         return email;
     }
     
-	public RoleName getRolName() {
+	public RolName getRolName() {
 		return rolName;
 	}
 

@@ -3,6 +3,7 @@ package com.ucav.gestionProtocoloService.entity;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -24,7 +25,7 @@ import com.ucav.gestionProtocoloService.entity.audit.UserDateAudit;
 
 
 @Entity
-@Table(name = "users", uniqueConstraints = {
+@Table(name = "usuarios", uniqueConstraints = {
         @UniqueConstraint(columnNames = {
             "username"
         }),
@@ -32,48 +33,65 @@ import com.ucav.gestionProtocoloService.entity.audit.UserDateAudit;
             "email"
         })
 })
-public class User extends UserDateAudit {
-    @Id
+public class Usuario extends UserDateAudit {
+
+	private static final long serialVersionUID = 1L;
+
+	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank
-    @Size(max = 100)
-    private String nombre;
-    
-    @Size(max = 10)
-    private String telefono;
-    
-    @NotBlank
-    @Size(max = 40)
-    private String username;
-    
     @NaturalId
     @NotBlank
-    @Size(max = 40)
-    @Email
-    private String email;
-
+    @Size(max = 50)
+    private String username;
+    
     @NotBlank
     @JsonIgnore
     @Size(max = 100)
     private String password;
     
+    @NotBlank
+    @Size(max = 100)
+    private String nombre;
+    
+    @NaturalId
+    @NotBlank
+    @Size(max = 100)
+    @Email
+    private String email;
+    
+    @Size(max = 10)
+    private String telefono;
+    
+    @Column(name = "tipo_id")
+    private Long tipo_id;
+    
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "user_roles",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Set<Role> roles = new HashSet<>();
-
-    public User() {
+    @JoinTable(name = "usuarios_roles",
+            joinColumns = @JoinColumn(name = "usuario_id"),
+            inverseJoinColumns = @JoinColumn(name = "rol_id"))
+    private Set<Rol> roles = new HashSet<>();
+     
+    
+    public Usuario() {
 
     }
 
-    public User(String nombre, String username, String email, String password) {
-        this.nombre = nombre;
+    public Usuario(
+    		String username, 
+    		String password, 
+    		String nombre,  
+    		String email, 
+    		String telefono, 
+    		Long tipo_id
+	) {
         this.username = username;
-        this.email = email;
         this.password = password;
+        this.nombre = nombre;
+        this.email = email;
+        this.telefono = telefono;
+        this.tipo_id = tipo_id; 
     }
 
     public Long getId() {
@@ -91,6 +109,14 @@ public class User extends UserDateAudit {
     public void setUsername(String username) {
         this.username = username;
     }
+    
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
     public String getNombre() {
         return nombre;
@@ -106,23 +132,7 @@ public class User extends UserDateAudit {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public Set<Role> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
-    }
+    }    
 
 	public String getTelefono() {
 		return telefono;
@@ -131,6 +141,20 @@ public class User extends UserDateAudit {
 	public void setTelefono(String telefono) {
 		this.telefono = telefono;
 	}
+	
+	public Long getTipoId() {
+        return tipo_id;
+    }
 
+    public void setTipoId(Long tipo_id) {
+        this.tipo_id = tipo_id;
+    }
+    
+    public Set<Rol> getRoles() {
+        return roles;
+    }
 
+    public void setRoles(Set<Rol> roles) {
+        this.roles = roles;
+    }
 }
