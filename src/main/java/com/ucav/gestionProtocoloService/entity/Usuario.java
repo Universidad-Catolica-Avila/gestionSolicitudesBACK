@@ -27,7 +27,10 @@ import com.ucav.gestionProtocoloService.entity.audit.UserDateAudit;
         })
 })
 public class Usuario extends UserDateAudit {
-    @Id
+
+	private static final long serialVersionUID = 1L;
+
+	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 

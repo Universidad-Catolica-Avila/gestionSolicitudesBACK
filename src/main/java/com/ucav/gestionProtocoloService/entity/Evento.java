@@ -41,9 +41,11 @@ public class Evento {
 	private String programa;
 	
 	@NotBlank
+	@Size(max = 255)
 	private String institucion;
 	
 	@NotBlank
+	@Size(max = 255)	
 	private String colaboradores;
 	
 	@NotBlank
@@ -76,16 +78,22 @@ public class Evento {
 	}
 
 	public Evento(
-		Long id, 
-		String nombre, 
-		String responsable,
-		Long tipo_id, 
-		Date fecha_inicio, 
-		Date fecha_fin, 
-		String programa,
-		String institucion, 
-		String colaboradores
-) {
+			Long id, 
+			String nombre, 
+			String responsable,
+			Long tipo_id, 
+			Date fecha_inicio, 
+			Date fecha_fin, 
+			String programa,
+			String institucion, 
+			String colaboradores,
+			Long formato_id,
+			Long localizacion_id,
+			Long soporte_id,
+			Long certificado_id,
+			Long difusion_id,
+			Long publico_id
+		) {
 		this.id = id;
 		this.nombre = nombre;
 		this.responsable = responsable;
@@ -95,6 +103,12 @@ public class Evento {
 		this.programa = programa;
 		this.institucion = institucion;
 		this.colaboradores = colaboradores;
+		this.formato_id = formato_id;
+		this.localizacion_id = localizacion_id;
+		this.soporte_id = soporte_id;
+		this.certificado_id = certificado_id;
+		this.difusion_id = difusion_id;
+		this.publico_id = publico_id;
 	}
 	
 

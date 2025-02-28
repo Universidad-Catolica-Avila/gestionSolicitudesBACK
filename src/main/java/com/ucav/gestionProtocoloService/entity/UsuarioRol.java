@@ -8,12 +8,12 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "usuario_roles")
+@Table(name = "usuarios_roles")
 public class UsuarioRol {
 	
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id; // Clave primaria de la tabla, si se requiere
+    private Long id;
 
     @Column(name = "usuario_id")
     private Long usuarioId;
