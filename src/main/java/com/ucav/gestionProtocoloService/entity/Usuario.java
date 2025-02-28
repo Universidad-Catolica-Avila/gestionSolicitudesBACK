@@ -1,10 +1,17 @@
 package com.ucav.gestionProtocoloService.entity;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Email;
@@ -59,6 +66,12 @@ public class Usuario extends UserDateAudit {
     
     @Column(name = "tipo_id")
     private Long tipo_id;
+    
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "usuarios_roles",
+            joinColumns = @JoinColumn(name = "usuario_id"),
+            inverseJoinColumns = @JoinColumn(name = "rol_id"))
+    private Set<Rol> roles = new HashSet<>();
      
     
     public Usuario() {
@@ -135,5 +148,13 @@ public class Usuario extends UserDateAudit {
 
     public void setTipoId(Long tipo_id) {
         this.tipo_id = tipo_id;
+    }
+    
+    public Set<Rol> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Rol> roles) {
+        this.roles = roles;
     }
 }

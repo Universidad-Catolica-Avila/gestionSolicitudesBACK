@@ -50,21 +50,21 @@ public class UserController {
 
     private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
-    @Secured("ROLE_ADMIN")
+    @Secured("ROL_ADMIN_CC")
     @GetMapping("/users")
     public List<Usuario> getUsuarios() {
     	List<Usuario> resultSQL = userRepository.findAll();
     	return resultSQL;
     }
     
-    @Secured("ROLE_ADMIN")
+    @Secured("ROL_ADMIN_CC")
     @GetMapping("/roles")
     public List<Rol> getRoles() {
     	List<Rol> resultSQL = roleRepository.findAll();
     	return resultSQL;
     }
     
-    @Secured("ROLE_ADMIN")
+    @Secured("ROL_ADMIN_CC")
     @GetMapping("/users/id/{id}")
     public Usuario getUserId(@PathVariable(value = "id") Long id) {
         Usuario user = userRepository.findById(id)
@@ -72,7 +72,7 @@ public class UserController {
         return user;
     }
 
-    @Secured("ROLE_ADMIN")
+    @Secured("ROL_ADMIN_CC")
     @DeleteMapping("/users/id/{id}")
     public boolean deleteUserId(@PathVariable(value = "id") Long id) {
         
@@ -87,13 +87,13 @@ public class UserController {
     
     
     @GetMapping("/user/me")
-    @Secured({"ROLE_ADMIN","ROLE_USER"})
+    @Secured({"ROL_ADMIN_CC","ROLE_USER"})
     public Usuario getCurrentUser(@CurrentUser UserPrincipal currentUser) {
     	Usuario userR = userRepository.findById(currentUser.getId()).orElseThrow(() -> new ResourceNotFoundException("User", "id", currentUser.getId()));;
         return userR;
     }
 
-    @Secured("ROLE_ADMIN")
+    @Secured("ROL_ADMIN_CC")
     @GetMapping("/users/{username}")
     public UserProfile getUserProfile(@PathVariable(value = "username") String username) {
         Usuario user = userRepository.findByUsername(username)
@@ -104,7 +104,7 @@ public class UserController {
         return userProfile;
     }
 
-    @Secured("ROLE_ADMIN") 
+    @Secured("ROL_ADMIN_CC") 
     @PostMapping("/user")
     public ResponseEntity<?> saveUser(@RequestBody UserRequest userRequest) {
         Usuario user = new Usuario();
@@ -133,7 +133,7 @@ public class UserController {
         return ResponseEntity.created(location).body(new ApiResponse(true, "User registered successfully"));
     }
     
-    @Secured("ROLE_ADMIN") 
+    @Secured("ROL_ADMIN_CC") 
     @PutMapping("/user")
     public ResponseEntity<?> updateUser(@RequestBody UserRequest userRequest) {
         
