@@ -12,8 +12,8 @@
 	<groupId>com.ucav.gestionProtocoloService</groupId>
 	<artifactId>gestionProtocoloService</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>gestionProtocoloService</name>
-	<description>gestionProtocoloService</description>
+	<name>gestionSolicitudesBACK</name>
+	<description>gestionSolicitudesBACK</description>
 
 	<properties>
 		<java.version>1.8</java.version>
