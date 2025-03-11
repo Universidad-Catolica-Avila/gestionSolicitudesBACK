@@ -1,13 +1,14 @@
 package com.ucav.gestionSolicitudesBACK.entity;
 
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -16,23 +17,17 @@ import lombok.Setter;
 @Getter
 @Setter
 @Table(name = "estados_evento")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"}) 
 public class EstadoEvento {
-
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    
-    @NotBlank
-    @Size(max=50)
+    private Integer id;
+
+    @Column(name = "descripcion")
     private String descripcion;
 
-    public EstadoEvento() { 
-    }
-
-    public EstadoEvento(String descripcion) {
-        this.descripcion = descripcion;
-    }
-
-   
+    public EstadoEvento() {}
 }
+
 

@@ -20,7 +20,7 @@ public class Localizacion {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
     
     @NotBlank
     @Size(max=50)
