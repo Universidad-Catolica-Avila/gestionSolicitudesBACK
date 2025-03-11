@@ -11,7 +11,12 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+import lombok.Getter;
+import lombok.Setter;
+
 @Entity
+@Getter
+@Setter
 @Table(name = "eventos")
 public class Evento {
 	
@@ -112,125 +117,6 @@ public class Evento {
 	}
 	
 
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getNombre() {
-		return nombre;
-	}
-
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
-
-	public String getResponsable() {
-		return responsable;
-	}
-
-	public void setResponsable(String responsable) {
-		this.responsable = responsable;
-	}
-
-	public Long getTipo_id() {
-		return tipo_id;
-	}
-
-	public void setTipo_id(Long tipo_id) {
-		this.tipo_id = tipo_id;
-	}
-
-	public Date getFecha_inicio() {
-		return fecha_inicio;
-	}
-
-	public void setFecha_inicio(Date fecha_inicio) {
-		this.fecha_inicio = fecha_inicio;
-	}
-
-	public Date getFecha_fin() {
-		return fecha_fin;
-	}
-
-	public void setFecha_fin(Date fecha_fin) {
-		this.fecha_fin = fecha_fin;
-	}
-
-	public String getPrograma() {
-		return programa;
-	}
-
-	public void setPrograma(String programa) {
-		this.programa = programa;
-	}
-
-	public String getInstitucion() {
-		return institucion;
-	}
-
-	public void setInstitucion(String institucion) {
-		this.institucion = institucion;
-	}
-
-	public String getColaboradores() {
-		return colaboradores;
-	}
-
-	public void setColaboradores(String colaboradores) {
-		this.colaboradores = colaboradores;
-	}
-
-	public Long getFormato_id() {
-		return formato_id;
-	}
-
-	public void setFormato_id(Long formato_id) {
-		this.formato_id = formato_id;
-	}
-
-	public Long getLocalizacion_id() {
-		return localizacion_id;
-	}
-
-	public void setLocalizacion_id(Long localizacion_id) {
-		this.localizacion_id = localizacion_id;
-	}
-
-	public Long getSoporte_id() {
-		return soporte_id;
-	}
-
-	public void setSoporte_id(Long soporte_id) {
-		this.soporte_id = soporte_id;
-	}
-
-	public Long getCertificado_id() {
-		return certificado_id;
-	}
-
-	public void setCertificado_id(Long certificado_id) {
-		this.certificado_id = certificado_id;
-	}
-
-	public Long getDifusion_id() {
-		return difusion_id;
-	}
-
-	public void setDifusion_id(Long difusion_id) {
-		this.difusion_id = difusion_id;
-	}
-
-	public Long getPublico_id() {
-		return publico_id;
-	}
-
-	public void setPublico_id(Long publico_id) {
-		this.publico_id = publico_id;
-	}
 	
 	
 }

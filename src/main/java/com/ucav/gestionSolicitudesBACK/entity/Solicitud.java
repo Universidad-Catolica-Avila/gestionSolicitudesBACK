@@ -8,7 +8,12 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
+import lombok.Getter;
+import lombok.Setter;
+
 @Entity
+@Getter
+@Setter
 @Table(name = "solicitudes")
 public class Solicitud {
 	
@@ -52,43 +57,5 @@ public class Solicitud {
 	}
 	
 
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public Long getOrganizador_id() {
-		return organizador_id;
-	}
-
-	public void setOrganizador_id(Long organizador_id) {
-		this.organizador_id = organizador_id;
-	}
-
-	public Long getEvento_id() {
-		return evento_id;
-	}
-
-	public void setEvento_id(Long evento_id) {
-		this.evento_id = evento_id;
-	}
-
-	public Long getEstado_id() {
-		return estado_id;
-	}
-
-	public void setEstado_id(Long estado_id) {
-		this.estado_id = estado_id;
-	}
-
-	public String getObservaciones_id() {
-		return observaciones_id;
-	}
-
-	public void setObservaciones_id(String observaciones_id) {
-		this.observaciones_id = observaciones_id;
-	}
+	
 }
