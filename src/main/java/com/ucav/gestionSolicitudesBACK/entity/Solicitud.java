@@ -5,8 +5,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.NotBlank;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -16,46 +17,22 @@ import lombok.Setter;
 @Setter
 @Table(name = "solicitudes")
 public class Solicitud {
-	
-	@Id
+    
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-	
-	@NotBlank
-	@Column(name = "organizador_id")
-    private Long organizador_id;
-	
-	@NotBlank
-	@Column(name = "evento_id")
-    private Long evento_id;
-	
-	@NotBlank
-	@Column(name = "estado_id")
-    private Long estado_id;
-	
-	@Column(name = "observaciones_id")
-    private String observaciones_id;
-	
-	
-	public Solicitud() {
-		
-	}
 
-	public Solicitud(			
-			Long id, 
-			Long organizador_id, 
-			Long evento_id,
-			Long estado_id,
-			String observaciones_id
-		) {
-		
-		this.id = id;
-		this.organizador_id = organizador_id;
-		this.evento_id = evento_id;
-		this.estado_id = estado_id;
-		this.observaciones_id = observaciones_id;
-	}
-	
 
-	
+    @ManyToOne
+    @JoinColumn(name = "evento_id", nullable = false)
+    private Evento evento;
+
+    @ManyToOne
+    @JoinColumn(name = "estado_id", nullable = false)
+    private EstadoEvento estado;
+
+    @Column(name = "observaciones")
+    private String observaciones;
+    
+    public Solicitud() {}
 }
