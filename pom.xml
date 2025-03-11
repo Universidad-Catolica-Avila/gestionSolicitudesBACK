@@ -9,8 +9,8 @@
 		<version>2.2.4.RELEASE</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.ucav.gestionProtocoloService</groupId>
-	<artifactId>gestionProtocoloService</artifactId>
+	<groupId>com.ucav.gestionSolicitudesBACK</groupId>
+	<artifactId>gestionSolicitudesBACK</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>gestionSolicitudesBACK</name>
 	<description>gestionSolicitudesBACK</description>
